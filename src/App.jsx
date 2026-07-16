@@ -111,7 +111,6 @@ export default function App() {
       }
     }
   };
-  };
 
   const handleGenerateEli5 = async (step) => {
     setIsGeneratingEli5(true);
