@@ -90,20 +90,18 @@ export default function App() {
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
     const payload = { contents: [{ parts: [{ text: prompt }] }] };
 
-    for (let attempt = 0; attempt < 5; attempt++) {
-      try {
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.json();
-        return data.candidates?.[0]?.content?.parts?.[0]?.text || "No response generated.";
-      } catch (error) {
-        if (attempt === 4) return `Error generating response: ${error.message}`;
-        await new Promise(r => setTimeout(r, 1000 * Math.pow(2, attempt)));
-      }
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (response.status === 429) return "⏳ Rate limit reached — please wait a moment and try again.";
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      const data = await response.json();
+      return data.candidates?.[0]?.content?.parts?.[0]?.text || "No response generated.";
+    } catch (error) {
+      return `Something went wrong: ${error.message}`;
     }
   };
 
