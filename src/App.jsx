@@ -87,13 +87,13 @@ export default function App() {
 
   const generateText = async (prompt) => {
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY || "";
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent`;
     const payload = { contents: [{ parts: [{ text: prompt }] }] };
 
     try {
       const response = await fetch(url, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'X-goog-api-key': apiKey },
         body: JSON.stringify(payload)
       });
       if (response.status === 429) return "⏳ Rate limit reached — please wait a moment and try again.";
