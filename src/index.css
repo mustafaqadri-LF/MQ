@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(59, 130, 246, 0.4), 0 0 20px rgba(59, 130, 246, 0.2); transform: scale(1); }
+  50% { box-shadow: 0 0 16px rgba(59, 130, 246, 0.7), 0 0 40px rgba(59, 130, 246, 0.4); transform: scale(1.05); }
+}
+@keyframes pulse-glow-emerald {
+  0%, 100% { box-shadow: 0 0 8px rgba(16, 185, 129, 0.4), 0 0 20px rgba(16, 185, 129, 0.2); transform: scale(1); }
+  50% { box-shadow: 0 0 16px rgba(16, 185, 129, 0.7), 0 0 40px rgba(16, 185, 129, 0.4); transform: scale(1.05); }
+}
+@keyframes pulse-glow-amber {
+  0%, 100% { box-shadow: 0 0 8px rgba(245, 158, 11, 0.4), 0 0 20px rgba(245, 158, 11, 0.2); transform: scale(1); }
+  50% { box-shadow: 0 0 16px rgba(245, 158, 11, 0.7), 0 0 40px rgba(245, 158, 11, 0.4); transform: scale(1.05); }
+}
+@keyframes pulse-glow-purple {
+  0%, 100% { box-shadow: 0 0 8px rgba(139, 92, 246, 0.4), 0 0 20px rgba(139, 92, 246, 0.2); transform: scale(1); }
+  50% { box-shadow: 0 0 16px rgba(139, 92, 246, 0.7), 0 0 40px rgba(139, 92, 246, 0.4); transform: scale(1.05); }
+}
+@keyframes packet-pulse {
+  0%, 100% { r: 5; opacity: 1; }
+  50% { r: 8; opacity: 0.8; }
+}
+@keyframes dash-flow {
+  to { stroke-dashoffset: -20; }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.node-active-blue { animation: pulse-glow 2s ease-in-out infinite; }
+.node-active-emerald { animation: pulse-glow-emerald 2s ease-in-out infinite; }
+.node-active-amber { animation: pulse-glow-amber 2s ease-in-out infinite; }
+.node-active-purple { animation: pulse-glow-purple 2s ease-in-out infinite; }
+.connection-active { stroke-dasharray: 6 4; animation: dash-flow 0.6s linear infinite; }
+.packet-dot { transition: cx 1.4s cubic-bezier(0.4, 0, 0.2, 1), cy 1.4s cubic-bezier(0.4, 0, 0.2, 1); animation: packet-pulse 1s ease-in-out infinite; }
+.detail-panel { animation: fade-up 0.4s ease-out; }
+.node-box { transition: all 0.3s ease; }
+.node-box:hover { transform: scale(1.05); }

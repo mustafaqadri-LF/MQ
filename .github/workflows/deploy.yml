@@ -29,10 +29,9 @@ jobs:
       - run: npm run build
         env:
           VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
-      - run: mkdir -p output/LFAMP/AppProvisioning && cp -r dist/. output/LFAMP/AppProvisioning/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: './output'
+          path: './dist'
       - id: deployment
         uses: actions/deploy-pages@v4
